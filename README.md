@@ -15,14 +15,16 @@ Antes de ejecutar el proyecto, asegúrate de tener instalado lo siguiente:
 python app.py
 
 
-### 1. Clonar el Repositorio
 
-Clona este repositorio en tu máquina local utilizando Git:
 
 
 
 ## Video de uso
 https://drive.google.com/file/d/1dwtvW4zbDSDa8sKSIT0JLTjNvz0giQcA/view?usp=sharing
+
+### 1. Clonar el Repositorio
+
+Clona este repositorio en tu máquina local utilizando Git:
 
 ```bash
 git clone https://github.com/tu-usuario/tu-repositorio.git
