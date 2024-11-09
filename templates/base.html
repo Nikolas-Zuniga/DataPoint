@@ -1,0 +1,24 @@
+<!-- File: base.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}ERP para MYPES{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+</head>
+<body>
+    <div class="sidebar animate__animated animate__fadeInLeft">
+        {% include 'sidebar.html' %}
+    </div>
+    <div class="main-content animate__animated animate__fadeIn">
+        <div class="content-container">
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+</body>
+</html>
+

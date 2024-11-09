@@ -1,0 +1,56 @@
+<!-- File: landing.html -->
+{% extends "base.html" %}
+
+{% block content %}
+<div class="landing-container">
+    <header class="header">
+        <h1>Bienvenido, emprendedor</h1>
+        <p>Nuestra meta es hacerte la vida más fácil para que formalices y hagas crecer tu negocio.</p>
+    </header>
+    
+    <section class="insights">
+        <div class="insight-card">
+            <h3>Total de Ingresos</h3>
+            <p>$<span id="total-ingresos">{{ datos_insights['total_ingresos'] }}</span></p>
+        </div>
+        <div class="insight-card">
+            <h3>Total de Productos Vendidos</h3>
+            <p><span id="productos-vendidos">{{ datos_insights['productos_vendidos'] }}</span></p>
+        </div>
+        <div class="insight-card">
+            <h3>Categoría Más Vendida</h3>
+            <p><span id="categoria-mas-vendida">{{ datos_insights['categoria_mas_vendida'] }}</span></p>
+        </div>
+        <div class="insight-card">
+            <h3>Producto Más Vendido</h3>
+            <p><span id="producto-mas-vendido">{{ datos_insights['producto_mas_vendido'] }}</span></p>
+        </div>
+    </section>
+    
+    <section class="recent-sales">
+        <h2>Ventas Recientes</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Fecha</th>
+                    <th>Producto</th>
+                    <th>Cantidad</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for venta in ventas_recientes %}
+                <tr>
+                    <td>{{ venta['fecha'] }}</td>
+                    <td>{{ venta['producto'] }}</td>
+                    <td>{{ venta['cantidad'] }}</td>
+                    <td>${{ venta['total'] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </section>
+    
+    
+</div>
+{% endblock %}
