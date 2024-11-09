@@ -125,5 +125,10 @@ def add_sale():
         cursor.close()
         conn.close()
 
+@app.route('/diagnostico')
+def diagnostico():
+    # Pasamos 'formalizacion' como la página activa
+    return render_template('diagnostico.html', active_page='diagnostico')
+
 if __name__ == '__main__':
     app.run(debug=True)

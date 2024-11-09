@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DataPoint - Diagnóstico de Negocio</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f2f5;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .question {
+            margin-bottom: 20px;
+            font-size: 18px;
+            color: #555;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .option {
+            padding: 10px;
+            background-color: #eaf4fc;
+            border: 2px solid #0275d8;
+            border-radius: 8px;
+            color: #0275d8;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .option:hover {
+            background-color: #0275d8;
+            color: #ffffff;
+        }
+
+        .result {
+            display: none;
+            margin-top: 20px;
+            font-size: 18px;
+            color: #333;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 10px;
+        }
+
+        .restart-btn {
+            margin-top: 15px;
+            padding: 10px 20px;
+            background-color: #0275d8;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        .restart-btn:hover {
+            background-color: #025aa5;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Diagnóstico de Negocio</h1>
+        <div class="question-container">
+            <div class="question" id="question-text">¿Cuál es tu principal actividad económica?</div>
+            <div class="options" id="options-container">
+                <!-- Opciones se generarán dinámicamente -->
+            </div>
+        </div>
+        <div class="result" id="result-container">
+            <p id="result-text">Recomendación: </p>
+            <button class="restart-btn" onclick="reiniciarDiagnostico()">Reiniciar Diagnóstico</button>
+        </div>
+    </div>
+
+    <script>
+        const preguntas = [
+            {
+                texto: "¿Cuál es tu principal actividad económica?",
+                opciones: [
+                    { respuesta: "Comercio", siguientePregunta: 1 },
+                    { respuesta: "Servicios", siguientePregunta: 1 },
+                    { respuesta: "Industria", siguientePregunta: 1 }
+                ]
+            },
+            {
+                texto: "¿Cuál es el promedio de tus ingresos mensuales?",
+                opciones: [
+                    { respuesta: "Menos de S/ 5,000", siguientePregunta: 2 },
+                    { respuesta: "Entre S/ 5,000 y S/ 20,000", siguientePregunta: 2 },
+                    { respuesta: "Más de S/ 20,000", siguientePregunta: 2 }
+                ]
+            },
+            {
+                texto: "¿Tienes empleados?",
+                opciones: [
+                    { respuesta: "No", recomendacion: "Régimen Especial de Renta" },
+                    { respuesta: "Sí, menos de 5", recomendacion: "Régimen MYPE Tributario" },
+                    { respuesta: "Sí, más de 5", recomendacion: "Régimen General" }
+                ]
+            }
+        ];
+
+        let preguntaActual = 0;
+
+        function cargarPregunta() {
+            const questionText = document.getElementById("question-text");
+            const optionsContainer = document.getElementById("options-container");
+            const pregunta = preguntas[preguntaActual];
+
+            questionText.textContent = pregunta.texto;
+            optionsContainer.innerHTML = "";
+
+            pregunta.opciones.forEach((opcion, index) => {
+                const optionButton = document.createElement("div");
+                optionButton.classList.add("option");
+                optionButton.textContent = opcion.respuesta;
+                optionButton.onclick = () => seleccionarOpcion(index);
+                optionsContainer.appendChild(optionButton);
+            });
+        }
+
+        function seleccionarOpcion(opcionIndex) {
+            const pregunta = preguntas[preguntaActual];
+            const opcion = pregunta.opciones[opcionIndex];
+
+            if (opcion.recomendacion) {
+                mostrarResultado(opcion.recomendacion);
+            } else {
+                preguntaActual = opcion.siguientePregunta;
+                cargarPregunta();
+            }
+        }
+
+        function mostrarResultado(recomendacion) {
+            document.getElementById("result-text").textContent = "Recomendación: " + recomendacion;
+            document.getElementById("question-text").style.display = "none";
+            document.getElementById("options-container").style.display = "none";
+            document.getElementById("result-container").style.display = "block";
+        }
+
+        function reiniciarDiagnostico() {
+            preguntaActual = 0;
+            document.getElementById("question-text").style.display = "block";
+            document.getElementById("options-container").style.display = "flex";
+            document.getElementById("result-container").style.display = "none";
+            cargarPregunta();
+        }
+
+        cargarPregunta();
+    </script>
+</body>
+</html>
