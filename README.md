@@ -19,5 +19,10 @@ python app.py
 
 Clona este repositorio en tu máquina local utilizando Git:
 
+
+
+## Video de uso
+https://drive.google.com/file/d/1dwtvW4zbDSDa8sKSIT0JLTjNvz0giQcA/view?usp=sharing
+
 ```bash
 git clone https://github.com/tu-usuario/tu-repositorio.git
