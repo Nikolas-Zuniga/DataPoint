@@ -12,6 +12,9 @@ Antes de ejecutar el proyecto, asegúrate de tener instalado lo siguiente:
 
 ## Instalación
 
+python app.py
+
+
 ### 1. Clonar el Repositorio
 
 Clona este repositorio en tu máquina local utilizando Git:
