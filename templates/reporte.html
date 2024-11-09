@@ -1,0 +1,160 @@
+<!-- File: report.html -->
+{% extends "base.html" %}
+
+{% block title %}Reporte Financiero{% endblock %}
+
+{% block content %}
+<div class="report-container">
+    <header class="header">
+        <h1>Reporte Financiero del Negocio</h1>
+        <p>Visualiza las métricas más importantes de tu negocio para tomar decisiones informadas.</p>
+    </header>
+
+    <section class="charts-container">
+        <!-- Ganancias y Pérdidas -->
+        <div class="chart-card">
+            <h3>Ganancias y Pérdidas</h3>
+            <canvas id="gananciasPerdidasChart"></canvas>
+        </div>
+
+        <!-- Ventas Mensuales -->
+        <div class="chart-card">
+            <h3>Ventas Mensuales</h3>
+            <canvas id="ventasMensualesChart"></canvas>
+        </div>
+
+        <!-- Expansión del Negocio -->
+        <div class="chart-card">
+            <h3>Expansión del Negocio</h3>
+            <canvas id="expansionNegocioChart"></canvas>
+        </div>
+
+        <!-- Métodos de Pago Utilizados -->
+        <div class="chart-card">
+            <h3>Métodos de Pago Utilizados</h3>
+            <canvas id="metodosPagoChart"></canvas>
+        </div>
+    </section>
+</div>
+
+<!-- CSS para mantener el estilo del proyecto -->
+<style>
+    .report-container {
+        padding: 20px;
+        background-color: #f9f9f9;
+    }
+    .header {
+        margin-bottom: 20px;
+    }
+    .charts-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 20px;
+    }
+    .chart-card {
+        background-color: #ffffff;
+        padding: 15px;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    .chart-card h3 {
+        font-size: 1.2em;
+        color: #2c3e50;
+        margin-bottom: 15px;
+    }
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    // Gráfico de Ganancias y Pérdidas
+    const gananciasPerdidasCtx = document.getElementById('gananciasPerdidasChart').getContext('2d');
+    new Chart(gananciasPerdidasCtx, {
+        type: 'bar',
+        data: {
+            labels: ['Enero', 'Febrero', 'Marzo', 'Abril'],
+            datasets: [
+                {
+                    label: 'Ganancias',
+                    data: [3000, 3500, 4000, 4500],
+                    backgroundColor: 'rgba(46, 204, 113, 0.8)',
+                },
+                {
+                    label: 'Pérdidas',
+                    data: [500, 700, 400, 600],
+                    backgroundColor: 'rgba(231, 76, 60, 0.8)',
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+    // Gráfico de Ventas Mensuales
+    const ventasMensualesCtx = document.getElementById('ventasMensualesChart').getContext('2d');
+    new Chart(ventasMensualesCtx, {
+        type: 'line',
+        data: {
+            labels: ['Enero', 'Febrero', 'Marzo', 'Abril'],
+            datasets: [{
+                label: 'Ventas',
+                data: [1000, 1500, 2000, 2500],
+                borderColor: 'rgba(52, 152, 219, 1)',
+                fill: false
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+    // Gráfico de Expansión del Negocio
+    const expansionNegocioCtx = document.getElementById('expansionNegocioChart').getContext('2d');
+    new Chart(expansionNegocioCtx, {
+        type: 'line',
+        data: {
+            labels: ['Q1', 'Q2', 'Q3', 'Q4'],
+            datasets: [{
+                label: 'Crecimiento de Clientes',
+                data: [100, 150, 200, 250],
+                backgroundColor: 'rgba(155, 89, 182, 0.6)',
+                fill: true
+            }]
+        },
+        options: {
+            responsive: true
+        }
+    });
+
+    // Gráfico de Métodos de Pago Utilizados
+    const metodosPagoCtx = document.getElementById('metodosPagoChart').getContext('2d');
+    new Chart(metodosPagoCtx, {
+        type: 'pie',
+        data: {
+            labels: ['BCP', 'BBVA', 'Interbank', 'Scotiabank'],
+            datasets: [{
+                data: [30, 25, 25, 20],
+                backgroundColor: [
+                    'rgba(41, 128, 185, 0.8)',
+                    'rgba(39, 174, 96, 0.8)',
+                    'rgba(243, 156, 18, 0.8)',
+                    'rgba(192, 57, 43, 0.8)'
+                ]
+            }]
+        },
+        options: {
+            responsive: true
+        }
+    });
+</script>
+{% endblock %}

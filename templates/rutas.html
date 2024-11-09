@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ruta de Formalización para PYMEs en Perú</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f2f5;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 900px;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .ruta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 10px;
+            overflow-x: auto;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        /* Estilo de mundo como tarjeta */
+        .mundo {
+            flex: 1 1 18%;
+            min-width: 130px;
+            max-width: 160px;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            background-color: #eaf4fc;
+            transition: transform 0.3s, background-color 0.3s, border-color 0.3s, color 0.3s;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+
+        .mundo h2 {
+            color: #0275d8;
+            font-size: 14px;
+            margin-top: 15px;
+            margin-bottom: 10px;
+        }
+
+        .mundo-icono {
+            font-size: 36px;
+            color: #0275d8;
+        }
+
+        .mundo.active {
+            background-color: #0275d8;
+            color: #ffffff;
+            border-color: #0275d8;
+            transform: scale(1.05);
+        }
+
+        .mundo.active h2, .mundo.active .mundo-icono {
+            color: #ffffff;
+        }
+
+        .mundo:hover {
+            background-color: #5ab8ff;
+            transform: scale(1.05);
+            color: #ffffff;
+        }
+
+        .mundo:hover h2, .mundo:hover .mundo-icono {
+            color: #ffffff;
+        }
+
+        .ruta::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 5%;
+            width: 90%;
+            height: 2px;
+            background-color: #ccc;
+            z-index: -1;
+        }
+
+        .reto {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            margin: 10px 0;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+            transition: background-color 0.3s, box-shadow 0.3s;
+            text-align: left;
+        }
+
+        .reto:hover {
+            background-color: #f1faff;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .reto.completed {
+            background-color: #e0ffe0;
+            border-color: #0a960a;
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        .upload-btn {
+            padding: 8px 12px;
+            background-color: #0275d8;
+            color: #ffffff;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            margin-top: 5px;
+            display: inline-block;
+            transition: background-color 0.3s;
+        }
+
+        .upload-btn:hover {
+            background-color: #025aa5;
+        }
+
+        .details {
+            margin-top: 10px;
+            font-size: 13px;
+            color: #555;
+        }
+
+        button {
+            background-color: #0275d8;
+            color: #ffffff;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            margin-top: 15px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #025aa5;
+        }
+
+        button:disabled {
+            background-color: #aaa;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Ruta de Formalización para PYMEs en Perú</h1>
+        <div class="ruta" id="ruta-container">
+            <!-- Los mundos se generarán aquí dinámicamente -->
+        </div>
+        <div id="mundos-container">
+            <!-- Los retos del mundo actual se mostrarán aquí -->
+        </div>
+        <button id="avanzar-btn" onclick="avanzarMundo()">Avanzar al Siguiente Mundo</button>
+        <p id="premio-final"></p>
+    </div>
+
+    <script>
+        const mundos = [
+            {
+                nombre: "Mundo 1",
+                descripcion: "Inicio de Formalización",
+                icono: "🌍",
+                retos: [
+                    { id: 1, nombre: "Sube tus reportes de ventas y compras", completado: false, detalles: "Realiza el reporte de tus ventas y compras en un formato de Excel o PDF." },
+                    { id: 2, nombre: "Registra el nombre de tu empresa en SUNARP", completado: false, detalles: "Haz clic aquí para registrar el nombre de tu empresa en la SUNARP: <a href='https://www.gob.pe/271-registrar-o-constituir-una-empresa-buscar-y-reservar-el-nombre-de-una-empresa' target='_blank' class='upload-btn'>Registrar Nombre en SUNARP</a>" }
+                ]
+            },
+            {
+                nombre: "Mundo 2",
+                descripcion: "Gestión de Inventarios",
+                icono: "📦",
+                retos: [
+                    { id: 1, nombre: "Sube tus inventarios", completado: false, detalles: "Crea un inventario básico de tus productos en un archivo Excel." },
+                    { id: 2, nombre: "Agenda una visita para verificación de inventarios", completado: false, detalles: "Agenda una visita con la entidad correspondiente: <a href='https://www.gob.pe' target='_blank' class='upload-btn'>Municipio Local</a>" }
+                ]
+            },
+            {
+                nombre: "Mundo 3",
+                descripcion: "Constitución Formal",
+                icono: "📜",
+                retos: [
+                    { id: 1, nombre: "Define el tipo de empresa", completado: false, detalles: "Consulta los tipos de empresas disponibles en el siguiente enlace: <a href='https://www.sunat.gob.pe' target='_blank' class='upload-btn'>Tipos de Empresa</a>" },
+                    { id: 2, nombre: "Registra en los organismos correspondientes", completado: false, detalles: "Completa el registro en los organismos: <a href='https://www.registropublico.gob.pe' target='_blank' class='upload-btn'>Registro Público</a>" }
+                ]
+            },
+            {
+                nombre: "Mundo 4",
+                descripcion: "Cumplimiento de Normativas",
+                icono: "✅",
+                retos: [
+                    { id: 1, nombre: "Obtén la licencia municipal", completado: false, detalles: "Solicita la licencia en la municipalidad local." },
+                    { id: 2, nombre: "Registra a los trabajadores en ESSALUD", completado: false, detalles: "Completa el registro de tus trabajadores en ESSALUD: <a href='https://www.essalud.gob.pe' target='_blank' class='upload-btn'>Registro ESSALUD</a>" }
+                ]
+            },
+            {
+                nombre: "Mundo 5",
+                descripcion: "Acceso a Financiamiento",
+                icono: "💰",
+                retos: [
+                    { id: 1, nombre: "Sube tu balance financiero de los últimos 6 meses", completado: false, detalles: "Prepara un balance financiero en PDF." },
+                    { id: 2, nombre: "Solicita el microcrédito en una entidad financiera", completado: false, detalles: "Solicita el microcrédito en una entidad autorizada: <a href='https://www.financieras.gob.pe' target='_blank' class='upload-btn'>Solicitar Microcrédito</a>" }
+                ]
+            }
+        ];
+
+        let mundoActual = 0;
+
+        function cargarRuta() {
+            const rutaContainer = document.getElementById("ruta-container");
+            rutaContainer.innerHTML = "";
+
+            mundos.forEach((mundo, index) => {
+                const mundoDiv = document.createElement("div");
+                mundoDiv.classList.add("mundo");
+                if (index === mundoActual) mundoDiv.classList.add("active");
+                mundoDiv.innerHTML = `<span class="mundo-icono">${mundo.icono}</span><h2>${mundo.nombre}</h2><p>${mundo.descripcion}</p>`;
+                rutaContainer.appendChild(mundoDiv);
+            });
+            cargarMundos();
+        }
+
+        function cargarMundos() {
+            const mundosContainer = document.getElementById("mundos-container");
+            mundosContainer.innerHTML = "";
+
+            const mundo = mundos[mundoActual];
+            mundo.retos.forEach((reto, index) => {
+                const retoDiv = document.createElement("div");
+                retoDiv.classList.add("reto");
+                retoDiv.innerHTML = `
+                    <span>${reto.nombre}</span>
+                    <label class="upload-btn">
+                        Subir
+                        <input type="file" class="file-input" onchange="completarReto(${index})">
+                    </label>
+                    <div class="details">${reto.detalles}</div>
+                `;
+                if (reto.completado) retoDiv.classList.add("completed");
+                mundosContainer.appendChild(retoDiv);
+            });
+            document.getElementById("avanzar-btn").disabled = !todosRetosCompletados();
+        }
+
+        function completarReto(indiceReto) {
+            mundos[mundoActual].retos[indiceReto].completado = true;
+            cargarMundos();
+        }
+
+        function todosRetosCompletados() {
+            return mundos[mundoActual].retos.every(reto => reto.completado);
+        }
+
+        function avanzarMundo() {
+            if (todosRetosCompletados()) {
+                if (mundoActual < mundos.length - 1) {
+                    mundoActual++;
+                    cargarRuta();
+                } else {
+                    document.getElementById("premio-final").textContent = "¡Felicidades! Ahora puedes acceder a un microcrédito para tu PYME.";
+                    document.getElementById("avanzar-btn").style.display = "none";
+                }
+            } else {
+                alert("Completa todos los retos antes de avanzar.");
+            }
+        }
+
+        cargarRuta();
+    </script>
+</body>
+</html>

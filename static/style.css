@@ -1,10 +1,12 @@
+/* File: style.css (ajustado) */
 body {
     font-family: 'Roboto', sans-serif;
     background-color: #f4f4f4;
     margin: 0;
     padding: 0;
-    display: flex;
     color: #333;
+    font-size: 16px;
+    /* Eliminado display: flex; para evitar conflictos de layout */
 }
 
 .sidebar {
@@ -16,6 +18,7 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    transition: margin-left 0.3s ease; /* Transición suave para manejar la visibilidad */
 }
 
 .sidebar-menu {
@@ -58,12 +61,14 @@ body {
     color: #fff;
 }
 
+
 .main-content {
     margin-left: 260px;
     padding: 20px;
     width: calc(100% - 260px);
     min-height: 100vh;
     background: #e8eef1;
+    transition: margin-left 0.3s ease; /* Transición suave para manejar la visibilidad */
 }
 
 .header, .insights, .recent-sales, footer {
@@ -82,7 +87,7 @@ body {
 
 .insight-card {
     width: 23%;
-    background: #3498db;
+    background: #2c3e50;
     color: #fff;
     padding: 15px;
     text-align: center;
@@ -141,62 +146,28 @@ footer p {
     background-color: #2980b9;
 }
 
-body, html {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    height: 100%;
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    color: #333;
+/* Ajustes para ocultar/mostrar contenido */
+.d-none {
+    display: none !important; /* Clase de Bootstrap para ocultar elementos */
 }
 
-.ruta-container {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-}
+/* Media Queries */
+@media screen and (max-width: 768px) {
+    .insights {
+        flex-direction: column;
+        gap: 10px;
+    }
 
-.mundo {
-    text-align: center;
-}
+    .insight-card {
+        width: 100%;
+    }
 
-.icono {
-    width: 100px;
-    height: 100px;
-    background-color: #ff6b6b;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 10px;
-    position: relative;
-}
+    .sidebar {
+        width: 200px;
+    }
 
-.icono img {
-    width: 60px;
-    height: 60px;
-}
-
-.mundo-titulo {
-    font-size: 1.2em;
-    font-weight: bold;
-    color: #333;
-}
-
-.retos {
-    font-size: 0.9em;
-    color: #777;
-}
-
-.linea {
-    width: 80px;
-    height: 4px;
-    background-color: #ff6b6b;
-    position: relative;
-    top: 50px;
+    .main-content {
+        margin-left: 210px;
+        width: calc(100% - 210px);
+    }
 }
